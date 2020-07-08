@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>About</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+        body {font-family: "Lato", sans-serif}
+        .mySlides {display: none}
+    </style>
+</head>
+
+
+<body>
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+
+<!-- Navbar -->
+<div class="w3-top">
+    <div class="w3-bar w3-black w3-card">
+        <a href="/admin" class="w3-bar-item w3-button w3-padding-large">Admin Menu</a>
+        <a href="/admincategory" class="w3-bar-item w3-button w3-padding-large w3-hide-small">Admin Kategori</a>
+        <a href="/adminproduct" class="w3-bar-item w3-button w3-padding-large w3-hide-small">Admin Produkt</a>
+        <a href="/adminservs" class="w3-bar-item w3-button w3-padding-large w3-hide-small">Admin Tjenester</a>
+        <a href="/adminreview" id="notification" class="w3-bar-item w3-button w3-padding-large w3-hide-small">Admin Review
+            <span th:if="${numberOfNotifications} > 0" style="margin-left: 3px; border-radius: 6px" class="w3-tag w3-red"
+                  th:text="${numberOfNotifications}"></span>
+        </a>
+        <a href="/admincontact" class="w3-bar-item w3-button w3-padding-large w3-hide-small">Admin Kontakt</a>
+        <a href="/adminabout" class="w3-bar-item w3-button w3-padding-large w3-hide-small">Admin Om</a>
+        <a href="/adminnavigationbar" class="w3-bar-item w3-button w3-padding-large w3-hide-small">Admin Navigations bar</a>
+        <a href="/logout" class="w3-padding-large w3-hover-red w3-hide-small w3-right"><i class="fa fa-power-off" style="font-size: 18px; color: white;"></i></a>
+    </div>
+</div>
+<br><br><br><br>
+
+
+<div class="container">
+    <h1 class="page-header">About Sektion</h1>
+
+    <form class="md-form" th:action="@{/saveabouttextandprofiletext}" enctype="multipart/form-data" method="POST">
+        <div class="file-field">
+            <div class="btn btn-primary btn-sm float-left">
+                <span>Choose Image (Max size 1MB)</span>
+                <br>
+                <input type="file" name="fileName" id="i_file">
+            </div>
+
+            <div class="container">
+
+                <br><br><br><br>
+                <textarea type="text" class="form-control" rows="20" cols="10" placeholder="Vælg din about tekst" name="heading"></textarea>
+                <br><br>
+                <button class="btn btn-primary" type="submit" id="i_submit">Opret</button>
+
+            </div>
+        </div>
+    </form>
+</div>
+
+<br><br><br>
+
+<div class="container">
+<table class="table table-striped table-bordered table-hover">
+    <thead>
+    <tr>
+
+        <th>Id</th>
+        <th>About Tekst</th>
+        <th>Billed Filnavn</th>
+        <th>Profil Billede</th>
+        <th></th>
+
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="about: ${fetchAboutTextandprofileimage}">
+
+        <td th:text="${about.id}"/>
+        <td th:text="${about.heading}"/>
+        <td th:text="${about.fileName}"/>
+        <td><img th:src="${about.profileImage}" style="width:100%"/></td>
+        <td>
+            <a class="glyphicon glyphicon-cog" title="Updater" th:href="${'updateabout/' + about.id}">
+                <!--<button class="btn btn-warning glyphicon glyphicon-pencil">edit</button>-->
+            </a>
+            <a class="glyphicon glyphicon-remove" title="Slet" th:href="${'delete/specificabout/' + about.id}" onclick="return confirmDelete()">
+                <!--<button class="btn btn-warning glyphicon glyphicon-pencil">edit</button>-->
+            </a>
+        </td>
+
+    </tr>
+
+    </tbody>
+</table>
+</div>
+
+
+
+<script>
+    $('#i_submit').click( function() {
+        //check whether browser fully supports all File API
+        if (window.File && window.FileReader && window.FileList && window.Blob)
+        {
+            //get the file size and file type from file input field
+            var fsize = $('#i_file')[0].files[0].size;
+            var ftype = $('#i_file')[0].files[0].type;
+
+            switch(ftype)
+            {
+                case 'image/png':
+                case 'image/gif':
+                case 'image/jpeg':
+                case 'image/pjpeg':
+                    break;
+                default:
+                    alert('Unsupported File!');
+                    event.preventDefault();
+            }
+
+            if(fsize>1048576) //do something if file size more than 1 mb (1048576)
+            {
+                var new_num = fsize.toFixed(1)/1000000;
+                var imageSize = new_num.toFixed(1)
+                alert(imageSize +" MB\nImage Size must be below 1MB!");
+                event.preventDefault();
+            }
+        }else{
+            alert("Please upgrade your browser, because your current browser lacks some new features we need!");
+        }
+    });
+
+    function confirmDelete() {
+        if (confirm("Slet About?") == true) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+</script>
+
+</body>
+</html>

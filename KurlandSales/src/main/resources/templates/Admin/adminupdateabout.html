@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Update about</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+        body {font-family: "Lato", sans-serif}
+        .mySlides {display: none}
+    </style>
+</head>
+<body>
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+
+<!-- Navbar -->
+<div class="w3-top">
+    <div class="w3-bar w3-black w3-card">
+        <a href="/admin" class="w3-bar-item w3-button w3-padding-large">Admin Menu</a>
+        <a href="/admincategory" class="w3-bar-item w3-button w3-padding-large w3-hide-small">Admin Kategori</a>
+        <a href="/adminproduct" class="w3-bar-item w3-button w3-padding-large w3-hide-small">Admin Produkt</a>
+        <a href="/adminservs" class="w3-bar-item w3-button w3-padding-large w3-hide-small">Admin Tjenester</a>
+        <a href="/adminreview" id="notification" class="w3-bar-item w3-button w3-padding-large w3-hide-small">Admin Review
+            <span th:if="${numberOfNotifications} > 0" style="margin-left: 3px; border-radius: 6px" class="w3-tag w3-red"
+                  th:text="${numberOfNotifications}"></span>
+        </a>
+        <a href="/admincontact" class="w3-bar-item w3-button w3-padding-large w3-hide-small">Admin Kontakt</a>
+        <a href="/adminabout" class="w3-bar-item w3-button w3-padding-large w3-hide-small">Admin Om</a>
+        <a href="/adminnavigationbar" class="w3-bar-item w3-button w3-padding-large w3-hide-small">Admin Navigations bar</a>
+        <a href="/logout" class="w3-padding-large w3-hover-red w3-hide-small w3-right"><i class="fa fa-power-off" style="font-size: 18px; color: white;"></i></a>
+    </div>
+</div>
+<br><br><br><br>
+<!--<div>
+
+<form class="md-form" th:action="@{/updateabout}" th:object="${aboutmodel}" enctype="multipart/form-data" method="POST" id="form2">
+
+    <div class="form-group">
+        <label>Title</label>
+        <input type="text" class="form-control" th:value="${oldAbout.heading}" name = "heading" required/>
+    </div>
+    <div>
+        <p>Nuværende Profil Billede: </p>
+        <img th:src="${oldAbout.profileImage}" alt="TobiasNK" style="width:20%">
+    </div>
+
+
+    <div class="file-field">
+        <div class="btn btn-primary btn-sm float-left">
+            <span>Choose Image (Max size 1MB)</span>
+            <br>
+            <input type="file" name="fileName" id="i_file">
+
+        </div>
+        <div class="file-path-wrapper">
+            <button class="btn btn-primary" type="submit" id="i_submit">Upload</button>
+
+        </div>
+    </div>
+</form>
+</div>-->
+<div class="container">
+    <h1 class="page-header">Updater About</h1>
+
+    <form class="md-form" th:action="@{/updateabout}" th:object="${aboutmodel}" enctype="multipart/form-data" method="POST" id="form2">
+        <div class="w3-quarter">
+            <div class="file-field">
+                <div class="btn btn-primary btn-sm float-left">
+                    <span>Choose Image (Max size 1MB)</span>
+                    <br>
+                    <input type="file" name="fileName" id="i_file">
+                </div>
+            </div>
+        </div>
+        <div class="w3-quarter">
+            <div>
+                <p>Nuværende Profil Billede: </p>
+                <img th:src="${oldAbout.profileImage}" alt="TobiasNK" style="width:60%">
+            </div>
+        </div>
+        <br><br>
+            <div class="container">
+
+                <br><br><br><br><br><br><br>
+                <div class="form-group">
+                    <textarea rows="10" cols="10" class="form-control" th:text="${oldAbout.heading}" name = "heading" required></textarea>
+                </div>
+                <br><br>
+                <button class="btn btn-primary" type="submit" id="i_submit">Opdater</button>
+
+            </div>
+    </form>
+</div>
+
+
+<script>
+    $('#i_submit').click( function() {
+        //check whether browser fully supports all File API
+        if (window.File && window.FileReader && window.FileList && window.Blob)
+        {
+            //get the file size and file type from file input field
+            var fsize = $('#i_file')[0].files[0].size;
+            var ftype = $('#i_file')[0].files[0].type;
+
+            switch(ftype)
+            {
+                case 'image/png':
+                case 'image/gif':
+                case 'image/jpeg':
+                case 'image/pjpeg':
+                    break;
+                default:
+                    alert('Unsupported File!');
+                    event.preventDefault();
+            }
+
+            if(fsize>1048576) //do something if file size more than 1 mb (1048576)
+            {
+                var new_num = fsize.toFixed(1)/1000000;
+                var imageSize = new_num.toFixed(1)
+                alert(imageSize +" MB\nImage Size must be below 1MB!");
+                event.preventDefault();
+            }
+        }else{
+            alert("Please upgrade your browser, because your current browser lacks some new features we need!");
+        }
+    });
+
+    function confirmDelete() {
+        if (confirm("Delete Image?") == true) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+</script>
+
+
+</body>
+</html>

@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+
+<meta charset="UTF-8">
+<title>Title</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+    html,body,h1,h2,h3,h4 {font-family:"Raleway", sans-serif}
+    .forsideheading:before, .forsideheading:after {
+        background-color: #808285;
+        content: "";
+        display: inline-block;
+        height: 1px;
+        position: relative;
+        vertical-align: middle;
+        width: 40%;
+    }
+    .forsideheading:before{
+        margin-left: 55px;
+
+    }
+    .w3-tag, .fa {cursor:pointer}
+    .w3-tag {height:15px;width:15px;padding:0;margin-top:6px}
+
+    #searchinput {
+        margin-top: 10px;
+        border: 1px solid whitesmoke;
+        border-bottom-left-radius: 3px;
+        border-top-left-radius: 3px;
+        background-color: white;
+    }
+    #searchbutton {
+        margin-top: 10px;
+        border: 1px whitesmoke;
+        border-bottom-right-radius: 3px;
+        border-top-right-radius: 3px;
+        margin-right: 15px;
+        background-color: #ddd;
+    }
+    #search-container button:hover {
+        background: darkgrey;
+    }
+</style>
+
+<body class="w3-white">
+
+<!-- Navbar -->
+<div class="w3-top">
+    <div class="w3-bar w3-black w3-card">
+        <div th:each="navBar : ${navigationBar}">
+            <a th:href="${navBar.urlPath}" class="w3-bar-item w3-button w3-padding-large w3-hide-small" th:text="${navBar.name}"></a>
+        </div>
+        <div class="search-container">
+            <form th:action="@{/search}" method="get">
+                <a class="filter" href="/search">
+                    <button id="searchbutton" class="w3-padding-medium w3-hover-grey w3-right" type="submit"><i class="fa fa-search"></i></button>
+                </a>
+                <input id="searchinput" class="w3-padding-medium w3-hover-white w3-right" type="text" placeholder="Søg.." name="searchAll">
+            </form>
+        </div>
+    </div>
+</div>
+<br><br><br><br>
+
+<!-- Content -->
+<div class="w3-main">
+    <h1>Category: <span th:text="${category.name}"></span></h1>
+
+    <br>
+    <div class="content cms-paragraph">
+        <h2 class="forsideheading">
+            <span th:text="${navigationBar[1].name}"></span>
+        </h2>
+    </div>
+    <br>
+    <!-- First Photo Grid-->
+    <div class="w3-row-padding" style="max-width:1300px">
+        <div th:each = "products : ${products}" style=" margin-left: 35px">
+            <div class="w3-quarter w3-container w3-margin-bottom">
+                <a th:href="${'/productinfo/' + products.id}">
+                <img th:src="${products.productImage}" alt="TobiasNK" style="width:100%">
+                </a>
+                    <div class="w3-container" style="background-color: whitesmoke; border-top: 5px solid;
+                     border-top-width: 5px !important; border-top-color: darkgrey !important;">
+                        <p><b><span th:text="${products.name}" style="font-size: x-large"></span></b></p>
+                        <p><span th:text="${products.shortDescription}" style="font-size: large"></span></p>
+                        <p><span th:text="${products.price} + ' kr.'" style="font-size: small"></span></p>
+                    </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<br><br><br><br><br>
+<footer id="footer" class="w3-container w3-padding-32 w3-light-grey w3-center">
+    <a href="#" class="w3-button w3-black w3-margin"><i class="fa fa-arrow-up w3-margin-right"></i>To the top</a>
+    <div class="w3-xlarge w3-section">
+        <i class="fa fa-facebook-official w3-hover-opacity"></i>
+        <i class="fa fa-instagram w3-hover-opacity"></i>
+        <i class="fa fa-snapchat w3-hover-opacity"></i>
+        <i class="fa fa-pinterest-p w3-hover-opacity"></i>
+        <i class="fa fa-twitter w3-hover-opacity"></i>
+        <i class="fa fa-linkedin w3-hover-opacity"></i>
+    </div>
+    <p>Powered by <a href="https://www.w3schools.com/w3css/default.asp" title="W3.CSS" target="_blank" class="w3-hover-text-green">The A-Team</a></p>
+</footer>
+</body>
+
+
+
+</body>
+</html>

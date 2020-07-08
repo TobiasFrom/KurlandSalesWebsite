@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+
+<meta charset="UTF-8">
+<title>Review</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+    html,body,h1,h2,h3,h4 {font-family:"Lato", sans-serif}
+    .w3-tag, .fa {cursor:pointer}
+    .w3-tag {height:15px;width:15px;padding:0;margin-top:6px}
+
+    #searchinput {
+        margin-top: 10px;
+        border: 1px solid whitesmoke;
+        border-bottom-left-radius: 3px;
+        border-top-left-radius: 3px;
+        background-color: white;
+    }
+    #searchbutton {
+        margin-top: 10px;
+        border: 1px whitesmoke;
+        border-bottom-right-radius: 3px;
+        border-top-right-radius: 3px;
+        margin-right: 15px;
+        background-color: #ddd;
+    }
+    #search-container button:hover {
+        background: darkgrey;
+    }
+
+</style>
+
+<body>
+
+<!-- Navbar -->
+<div class="w3-top">
+    <div class="w3-bar w3-black w3-card">
+        <div th:each="navBar : ${navigationBar}">
+            <a th:href="${navBar.urlPath}" class="w3-bar-item w3-button w3-padding-large w3-hide-small" th:text="${navBar.name}"></a>
+        </div>
+        <div class="search-container">
+            <form th:action="@{/search}" method="get">
+                <a class="filter" href="/search">
+                    <button id="searchbutton" class="w3-padding-medium w3-hover-grey w3-right" type="submit"><i class="fa fa-search"></i></button>
+                </a>
+                <input id="searchinput" class="w3-padding-medium w3-hover-white w3-right" type="text" placeholder="Søg.." name="searchAll">
+            </form>
+        </div>
+    </div>
+</div>
+<br><br>
+
+
+<!--Content-->
+<div class="w3-row w3-padding w3-border">
+
+    <div class="container" style="margin-left: 50px">
+
+    <!-- Create review -->
+    <div class="w3-container w3-white w3-margin w3-padding-large">
+        <h2>Skriv dit <span th:text="${navigationBar[5].name}"></span>:</h2>
+    </div>
+    <div class="w3-container w3-white w3-margin w3-padding-large" id="contact">
+        <div class="w3-row w3-padding-32">
+            <div class="w3-col m6">
+                <form method="post" action="/review/" th:object="${Review}">
+                    <div class="w3-row-padding" style="margin:0 -16px 8px -16px">
+                        <div class="w3-half">
+                            <input class="w3-input w3-border" type="text" placeholder="Emne" th:field="${newReview.topic}" required>
+                        </div>
+                        <div class="w3-half">
+                            <input class="w3-input w3-border" type="text" placeholder="Navn" th:field="${newReview.name}" required>
+                        </div>
+                    </div>
+                    <div style="margin:0 0px 8px 0px">
+                        <textarea rows="10" cols="10" class="w3-input w3-border" type="text" placeholder="Indlæg" th:field="${newReview.description}" required></textarea>
+                    </div>
+                    <input type="submit" value="Opret" onclick="return confirmCreate()">
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- review entries -->
+    <div class="w3-col l8 s12">
+
+        <!-- review entry -->
+        <div class="container" th:each="reviews : ${reviews}">
+            <div th:if="${reviews.verified}">
+                <div class="w3-container w3-white w3-margin w3-padding-large" style="border: 2px solid lightgrey; border-radius: 3px">
+                    <div class="w3-half" style="border-bottom: 2px solid whitesmoke; border-right: 2px solid whitesmoke">
+                        <h4><span class="w3-opacity">Emne: </span><span th:text="${reviews.topic}"></span></h4>
+                    </div>
+                    <div class="w3-half" style="border-bottom: 2px solid whitesmoke">
+                        <h4 style="margin-left: 5px"><span class="w3-opacity"><i class="fa fa-user"></i> Navn: </span><span th:text="${reviews.name}"></span></h4>
+                    </div>
+                    <br><br>
+                    <div class="w3-justify">
+                        <p th:text="${reviews.description}"></p>
+                    </div>
+                </div>
+                <br>
+                <hr>
+                <br>
+            </div>
+        </div>
+    </div>
+    </div>
+<!-- END REVIEW ENTRIES -->
+</div>
+
+
+<!-- Footer -->
+<footer id="footer" class="w3-container w3-padding-32 w3-light-grey w3-center">
+    <a href="#" class="w3-button w3-black w3-margin"><i class="fa fa-arrow-up w3-margin-right"></i>To the top</a>
+    <div class="w3-xlarge w3-section">
+        <i class="fa fa-facebook-official w3-hover-opacity"></i>
+        <i class="fa fa-instagram w3-hover-opacity"></i>
+        <i class="fa fa-snapchat w3-hover-opacity"></i>
+        <i class="fa fa-pinterest-p w3-hover-opacity"></i>
+        <i class="fa fa-twitter w3-hover-opacity"></i>
+        <i class="fa fa-linkedin w3-hover-opacity"></i>
+    </div>
+    <p>Powered by <a href="https://www.w3schools.com/w3css/default.asp" title="W3.CSS" target="_blank" class="w3-hover-text-green">The A-Team</a></p>
+</footer>
+<script>
+    function confirmCreate() {
+        if (confirm("Dit Review er nu sendt videre til godkendelse!") == true) {
+            return true;
+        } else {
+            return true;
+        }
+    }
+</script>
+
+</body>
+</html>

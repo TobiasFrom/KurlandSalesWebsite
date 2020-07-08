@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+        body {font-family: "Lato", sans-serif}
+        .mySlides {display: none}
+        .w3-tag, .fa {cursor:pointer}
+        .w3-tag {height:15px;width:15px;padding:0;margin-top:6px}
+
+        #searchinput {
+            margin-top: 10px;
+            border: 1px solid whitesmoke;
+            border-bottom-left-radius: 3px;
+            border-top-left-radius: 3px;
+            background-color: white;
+        }
+        #searchbutton {
+            margin-top: 10px;
+            border: 1px whitesmoke;
+            border-bottom-right-radius: 3px;
+            border-top-right-radius: 3px;
+            margin-right: 15px;
+            background-color: #ddd;
+        }
+        #search-container button:hover {
+            background: darkgrey;
+        }
+    </style>
+
+</head>
+<body>
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+
+<!-- Navbar -->
+<div class="w3-top">
+    <div class="w3-bar w3-black w3-card">
+        <div th:each="navBar : ${navigationBar}">
+            <a th:href="${navBar.urlPath}" class="w3-bar-item w3-button w3-padding-large w3-hide-small" th:text="${navBar.name}"></a>
+        </div>
+        <div class="search-container">
+            <form th:action="@{/search}" method="get">
+                <a class="filter" href="/search">
+                    <button id="searchbutton" class="w3-padding-medium w3-hover-grey w3-right" type="submit"><i class="fa fa-search"></i></button>
+                </a>
+                <input id="searchinput" class="w3-padding-medium w3-hover-white w3-right" type="text" placeholder="Søg.." name="searchAll">
+            </form>
+        </div>
+    </div>
+</div>
+<br><br><br><br>
+
+<!-- Content -->
+<div class="container">
+    <h1 class="page-header"><span th:text="${servsmodel.name}"></span></h1>
+
+    <table class="table table-striped table-bordered table-hover">
+        <thead>
+        <tr>
+
+            <th>Navn</th>
+            <th>Pris</th>
+            <th>Beskrivelse</th>
+            <th></th>
+
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td th:text="${servsmodel.name}"></td>
+            <td th:text="${servsmodel.price}"></td>
+            <td th:text="${servsmodel.longDescription}"></td>
+            <td><img th:src="${servsmodel.image}" alt="servs Image" style="width:70%"></td>
+        </tr>
+
+        </tbody>
+    </table>
+</div>
+<br>
+<br>
+
+<br><br><br><br><br>
+<footer id="footer" class="w3-container w3-padding-32 w3-light-grey w3-center">
+    <a href="#" class="w3-button w3-black w3-margin"><i class="fa fa-arrow-up w3-margin-right"></i>To the top</a>
+    <div class="w3-xlarge w3-section">
+        <i class="fa fa-facebook-official w3-hover-opacity"></i>
+        <i class="fa fa-instagram w3-hover-opacity"></i>
+        <i class="fa fa-snapchat w3-hover-opacity"></i>
+        <i class="fa fa-pinterest-p w3-hover-opacity"></i>
+        <i class="fa fa-twitter w3-hover-opacity"></i>
+        <i class="fa fa-linkedin w3-hover-opacity"></i>
+    </div>
+    <p>Powered by <a href="https://www.w3schools.com/w3css/default.asp" title="W3.CSS" target="_blank" class="w3-hover-text-green">The A-Team</a></p>
+</footer>
+
+</body>
+</html>

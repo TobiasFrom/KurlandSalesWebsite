@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+        body {font-family: "Lato", sans-serif}
+        .mySlides {display: none}
+    </style>
+
+</head>
+
+<body>
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+
+<!-- Navbar -->
+<div class="w3-top">
+    <div class="w3-bar w3-black w3-card">
+        <a href="/admin" class="w3-bar-item w3-button w3-padding-large">Admin Menu</a>
+        <a href="/admincategory" class="w3-bar-item w3-button w3-padding-large w3-hide-small">Admin Kategori</a>
+        <a href="/adminproduct" class="w3-bar-item w3-button w3-padding-large w3-hide-small">Admin Produkt</a>
+        <a href="/adminservs" class="w3-bar-item w3-button w3-padding-large w3-hide-small">Admin Tjenester</a>
+        <a href="/adminreview" id="notification" class="w3-bar-item w3-button w3-padding-large w3-hide-small">Admin Review
+            <span th:if="${numberOfNotifications} > 0" style="margin-left: 3px; border-radius: 6px" class="w3-tag w3-red"
+                  th:text="${numberOfNotifications}"></span>
+        </a>
+        <a href="/admincontact" class="w3-bar-item w3-button w3-padding-large w3-hide-small">Admin Kontakt</a>
+        <a href="/adminabout" class="w3-bar-item w3-button w3-padding-large w3-hide-small">Admin Om</a>
+        <a href="/adminnavigationbar" class="w3-bar-item w3-button w3-padding-large w3-hide-small">Admin Navigations bar</a>
+        <a href="/logout" class="w3-padding-large w3-hover-red w3-hide-small w3-right"><i class="fa fa-power-off" style="font-size: 18px; color: white;"></i></a>
+    </div>
+</div>
+<br>
+
+<div class="w3-container w3-content w3-padding-64" style="max-width:800px" id="contact">
+    <h1 class="page-header">Opdater Navigation bar</h1>
+    <p class="w3-half" th:each="navBar : ${navigationBar}">
+        <span class="w3-quarter" th:text="${navBar.name}" style=" margin-top: 20px; font-size: larger"/>
+            <a class="w3-quarter" th:href="@{'updatenavbar/' + ${navBar.id}}">
+                <button class="w3-button w3-black w3-section" style="color:green; margin-left: 30px">Opdater</button>
+            </a>
+    </p>
+</div>
+
+<script>
+    function confirmDelete() {
+        if (confirm("Delete Image?") == true) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+</script>
+
+
+</body>
+</html>

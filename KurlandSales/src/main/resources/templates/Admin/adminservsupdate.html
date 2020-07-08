@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+        body {font-family: "Lato", sans-serif}
+        .mySlides {display: none}
+    </style>
+
+</head>
+<body>
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+
+<!-- Navbar -->
+<div class="w3-top">
+    <div class="w3-bar w3-black w3-card">
+        <a href="/admin" class="w3-bar-item w3-button w3-padding-large">Admin Menu</a>
+        <a href="/admincategory" class="w3-bar-item w3-button w3-padding-large w3-hide-small">Admin Kategori</a>
+        <a href="/adminproduct" class="w3-bar-item w3-button w3-padding-large w3-hide-small">Admin Produkt</a>
+        <a href="/adminservs" class="w3-bar-item w3-button w3-padding-large w3-hide-small">Admin Tjenester</a>
+        <a href="/adminreview" id="notification" class="w3-bar-item w3-button w3-padding-large w3-hide-small">Admin Review
+            <span th:if="${numberOfNotifications} > 0" style="margin-left: 3px; border-radius: 6px" class="w3-tag w3-red"
+                  th:text="${numberOfNotifications}"></span>
+        </a>
+        <a href="/admincontact" class="w3-bar-item w3-button w3-padding-large w3-hide-small">Admin Kontakt</a>
+        <a href="/adminabout" class="w3-bar-item w3-button w3-padding-large w3-hide-small">Admin Om</a>
+        <a href="/adminnavigationbar" class="w3-bar-item w3-button w3-padding-large w3-hide-small">Admin Navigations bar</a>
+        <a href="/logout" class="w3-padding-large w3-hover-red w3-hide-small w3-right"><i class="fa fa-power-off" style="font-size: 18px; color: white;"></i></a>
+    </div>
+</div>
+<br><br><br><br>
+
+
+<div class="container">
+    <h1 class="page-header">Opdater Produkt </h1>
+
+    <form class="md-form" th:action="@{/updateservs}" enctype="multipart/form-data" method="POST" th:object="${oldServsmodel}">
+        <input type="hidden" th:field="${oldServsmodel.id}"/>
+        <div class="file-field">
+            <div class="btn btn-primary btn-sm float-left">
+                <span>Choose Image (Max size 1MB)</span>
+                <br>
+                <input type="file" name="fileName" id="i_file">
+            </div>
+        </div>
+        <div>
+            <br><br><br><br>
+            <p>Tjeneste navn: </p><input type="text" size="40" th:value="${oldServsmodel.name}" name="name" required/>
+            <br><br>
+            <p>Pris: </p><input type="number" size="10" th:value="${oldServsmodel.price}" name="price" required/>
+            <br><br>
+            <p>Short Description: </p><input type="text" size="40" th:value="${oldServsmodel.shortDescription}" name="shortDescription" required/>
+            <br><br>
+            <p>Long Description: </p><textarea rows="4" cols="50" th:text="${oldServsmodel.longDescription}" name="longDescription" required></textarea>
+            <br><br>
+            <p>Category:</p>
+
+
+            <!--<select >-->
+            <!--<option th:each="fetchAllCategories: ${fetchAllCategories}" value="">-->
+            <!--<span th:text="${fetchAllCategories.name}"></span>-->
+            <!--</option>-->
+            <!--</select>-->
+
+            <br><br><br>
+            <button class="btn btn-primary" type="submit" id="i_submit">Opdater</button>
+            <div class="file-path-wrapper">
+            </div>
+
+        </div>
+    </form>
+    <br>
+    <br>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<title>Login</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+<style>
+    body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
+</style>
+
+<head th:include="head :: styles">
+<body class="w3-light-grey">
+<br><br><br>
+<div class="container">
+    </head>
+
+    <div th:fragment="navbar" xmlns:th="http://www.w3.org/1999/xhtml">
+        <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+
+            <!-- Links -->
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="/adminlogin"><span class="fas fa-key"></span> Login</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+
+    <h1>Login</h1>
+    <br>
+
+    <div class="alert alert-danger alert-dismissible" th:classappend="${loginError} ? '' : 'd-none'">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <strong>Login Error!</strong> Wrong username or password!
+    </div>
+
+    <form name='f' th:action="@{/adminlogin}" method='POST'>
+
+        <input type="text" class="form-control mr-sm-2" name='username' placeholder="Username" value='' required=''/>
+        <br>
+        <input type="password" class="form-control mr-sm-2" name='password' placeholder="Password" required=''  minlength="6"/>
+
+        <br>
+        <button class="btn btn-primary" type="submit" name="submit" value="sumbit">Login</button>
+
+    </form>
+    <br/>
+
+</div>
+</body>
+</html>
